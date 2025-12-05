@@ -1,318 +1,424 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Norwegian Christmas Card Game</title>
+  <meta charset="UTF-8" />
+  <title>Norwegian Xmas Cards – B1</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    body{
-      margin:0;
-      background:#0d0d0d;
-      font-family:system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:#000;
+      color:#fff;
       display:flex;
       justify-content:center;
-      align-items:center;
-      height:100vh;
-      color:#fff;
+      align-items:flex-start;
+      min-height:100vh;
+      padding:16px 8px 24px;
     }
-
-    .game-container{
-      position:relative;
-      width:430px;
-      max-width:100%;
-      background:#1f1f1f;
-      border-radius:22px;
-      padding:12px;
-      box-shadow:0 12px 50px rgba(0,0,0,.8);
-    }
-
-    .card{
-      position:relative;
+    .app {
       width:100%;
-      height:260px;
-      border-radius:18px;
+      max-width:430px;
+    }
+    .title {
+      text-align:center;
+      margin-bottom:10px;
+      font-weight:700;
+      font-size:20px;
+    }
+    .subtitle {
+      text-align:center;
+      font-size:12px;
+      opacity:0.8;
+      margin-bottom:12px;
+    }
+
+    .card {
+      background:#111;
+      border-radius:22px;
+      padding:0;
       overflow:hidden;
-      box-shadow:0 10px 30px rgba(0,0,0,0.6);
+      box-shadow:0 18px 40px rgba(0,0,0,0.6);
+      border:1px solid #222;
+    }
+    .card-header {
+      position:relative;
       background:#000;
     }
+    .card-flag {
+      position:absolute;
+      top:10px;
+      left:10px;
+      width:46px;
+      height:32px;
+      border-radius:8px;
+      overflow:hidden;
+      box-shadow:0 4px 10px rgba(0,0,0,0.4);
+    }
+    .card-flag img { width:100%; height:100%; object-fit:cover; }
 
-    .card-img{
+    .card-tag {
+      position:absolute;
+      top:8px;
+      right:12px;
+      background:#fff;
+      color:#c80000;
+      padding:4px 14px;
+      border-radius:999px;
+      font-size:14px;
+      font-weight:700;
+      display:flex;
+      align-items:center;
+      gap:6px;
+      transform:rotate(8deg);
+      box-shadow:0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    .card-img-wrapper {
+      height:150px;           /* ทำให้ส่วนภาพเตี้ยลง */
+      background:#000;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+    }
+    .card-img-wrapper img {
       width:100%;
-      height:140px;
+      height:100%;
       object-fit:cover;
       display:block;
     }
+    .img-placeholder {
+      font-size:12px;
+      color:#888;
+    }
 
-    .card-bottom{
-      background:linear-gradient(135deg,#ff3b3b,#c40000);
-      height:120px;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
-      color:white;
+    .card-word {
+      background:linear-gradient(145deg,#ff3333,#cc0000);
+      padding:18px 18px 16px;
       position:relative;
     }
-
-    .word{
-      font-size:34px;
-      font-weight:700;
-      margin-top:2px;
+    .word-main {
+      font-size:30px;
+      font-weight:800;
+      margin-bottom:6px;
     }
-
-    .meaning{
-      font-size:20px;
-      opacity:0.95;
-      margin-top:4px;
-    }
-
-    .flag{
-      position:absolute;
-      top:8px;
-      left:8px;
-      width:48px;
-      border-radius:6px;
-      box-shadow:0 0 6px rgba(0,0,0,.7);
-    }
-
-    .category{
-      position:absolute;
-      top:8px;
-      right:8px;
-      background:white;
-      color:#d10000;
-      padding:4px 10px;
-      border-radius:12px;
-      font-weight:700;
+    .word-thai {
       font-size:16px;
-      transform:rotate(6deg);
+      opacity:0.95;
     }
-
-    .number{
+    .card-number {
       position:absolute;
-      bottom:8px;
-      right:10px;
-      background:white;
-      color:#d10000;
-      padding:4px 10px;
-      border-radius:10px;
+      right:14px;
+      bottom:10px;
+      background:#fff;
+      color:#ff3333;
+      width:32px;
+      height:32px;
+      border-radius:12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:800;
       font-size:18px;
-      font-weight:700;
-      transform:rotate(-6deg);
+      box-shadow:0 4px 10px rgba(0,0,0,0.35);
     }
 
-    .sentence-box{
-      margin-top:14px;
-      background:#333;
-      padding:12px;
-      border-radius:14px;
-      font-size:15px;
-      line-height:1.35;
+    .sentence-box {
+      margin-top:6px;
+      background:#222;
+      border-radius:18px;
+      padding:10px 14px 11px;
+      font-size:14px;
+      line-height:1.4;
+    }
+    .sentence-nb {
+      margin-bottom:4px;
+      font-weight:600;
+    }
+    .sentence-th {
+      font-size:13px;
+      margin-bottom:4px;
+    }
+    .sentence-pron {
+      font-size:11px;
+      opacity:0.7;
     }
 
-    button{
-      width:100%;
-      padding:12px;
-      border:none;
-      border-radius:14px;
+    .buttons {
       margin-top:10px;
-      font-size:18px;
-      font-weight:700;
-      cursor:pointer;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
     }
-    .btn-random{ background:#1abc9c; color:#fff; }
-    .btn-speak-word{ background:#3498db; color:#fff; }
-    .btn-speak-sentence{ background:#9b59b6; color:#fff; }
+    .btn {
+      width:100%;
+      border:none;
+      border-radius:18px;
+      padding:12px 10px;
+      font-size:16px;
+      font-weight:650;
+      cursor:pointer;
+      transition:transform .06s ease, box-shadow .06s ease, opacity .06s ease;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+    }
+    .btn:active {
+      transform:translateY(1px) scale(0.98);
+      box-shadow:none;
+      opacity:0.9;
+    }
+    .btn-random {
+      background:#00c0a3;
+      color:#000;
+      box-shadow:0 6px 14px rgba(0,192,163,0.4);
+    }
+    .btn-word {
+      background:#1e88ff;
+      color:#fff;
+      box-shadow:0 6px 14px rgba(30,136,255,0.5);
+    }
+    .btn-sentence {
+      background:#9c27ff;
+      color:#fff;
+      box-shadow:0 6px 14px rgba(156,39,255,0.5);
+    }
+    .btn small { font-size:13px; opacity:0.9; }
+
+    footer {
+      margin-top:10px;
+      text-align:center;
+      font-size:11px;
+      color:#888;
+    }
+    footer a {
+      color:#ddd;
+      text-decoration:none;
+    }
   </style>
 </head>
 <body>
+  <main class="app">
+    <h1 class="title">🎄 Norwegian Xmas Cards – B1</h1>
+    <p class="subtitle">การ์ดคำศัพท์นอร์เวย์สำหรับช่วงคริสต์มาส พร้อมเสียงอ่านและตัวอย่างประโยค</p>
 
-<div class="game-container">
+    <section class="card" aria-live="polite">
+      <div class="card-header">
+        <div class="card-flag">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Flag_of_Norway.svg" alt="Flag of Norway">
+        </div>
+        <div class="card-tag">
+          <span>🎅 Xmas</span>
+        </div>
+        <div class="card-img-wrapper">
+          <img id="cardImage" src="" alt="Christmas illustration" />
+          <span id="imgPlaceholder" class="img-placeholder" style="display:none;">
+            ไม่มีภาพ
+          </span>
+        </div>
+      </div>
 
-  <div class="card" id="card">
+      <div class="card-word">
+        <div id="wordMain" class="word-main">juletre</div>
+        <div id="wordThai" class="word-thai">ต้นคริสต์มาส</div>
+        <div id="cardNumber" class="card-number">1</div>
+      </div>
 
-    <img id="cardImg" class="card-img" src="">
+      <div class="sentence-box">
+        <div id="sentenceNb" class="sentence-nb">
+          Vi pynter juletreet sammen på julaften.
+        </div>
+        <div id="sentenceTh" class="sentence-th">
+          พวกเราตกแต่งต้นคริสต์มาสด้วยกันในคืนคริสต์มาสอีฟ
+        </div>
+        <div id="sentencePron" class="sentence-pron">
+          วี พึนเตอร์ ยูเลทเรเอ็ต ซัมเมน โป ยูลาฟ์เติน
+        </div>
+      </div>
 
-    <!-- ธงนอร์เวย์ -->
-    <img class="flag" src="data:image/svg+xml;utf8,
-    <svg xmlns='http://www.w3.org/2000/svg' width='640' height='480'>
-    <path fill='%23ef2b2d' d='M0 0h640v480H0z'/>
-    <path fill='%23fff' d='M180 0h120v480H180zM0 180h640v120H0z'/>
-    <path fill='%23002f6c' d='M210 0h60v480h-60zM0 210h640v60H0z'/>
-    </svg>">
+      <div class="buttons">
+        <button class="btn btn-random" id="btnRandom">
+          🎲 สุ่มการ์ดถัดไป
+        </button>
+        <button class="btn btn-word" id="btnSpeakWord">
+          🔊 อ่านคำศัพท์ <small>(นอร์เวย์)</small>
+        </button>
+        <button class="btn btn-sentence" id="btnSpeakSentence">
+          🔊 อ่านประโยคตัวอย่าง <small>(นอร์เวย์)</small>
+        </button>
+      </div>
+    </section>
 
-    <div class="category" id="category">🎄 Xmas</div>
+    <footer>
+      Hosted on <a href="https://jozetaku.github.io" target="_blank">GitHub Pages</a> · images via Pexels (free to use)
+    </footer>
+  </main>
 
-    <div class="card-bottom">
-      <div class="word" id="word">juletre</div>
-      <div class="meaning" id="meaning">ต้นคริสต์มาส</div>
-    </div>
+  <script>
+    const cards = [
+      {
+        id: 1,
+        word: "juletre",
+        thai: "ต้นคริสต์มาส",
+        image: "https://images.pexels.com/photos/29833719/pexels-photo-29833719.jpeg?cs=srgb&dl=pexels-alena-evseenko-660538512-29833719.jpg&fm=jpg",
+        sentenceNb: "Vi pynter juletreet sammen på julaften.",
+        sentenceTh: "พวกเราตกแต่งต้นคริสต์มาสด้วยกันในคืนคริสต์มาสอีฟ",
+        sentencePron: "วี พึนเตอร์ ยูเลทเรเอ็ต ซัมเมน โป ยูลาฟ์เติน"
+      },
+      {
+        id: 2,
+        word: "julegaver",
+        thai: "ของขวัญคริสต์มาส",
+        image: "https://images.pexels.com/photos/5469764/pexels-photo-5469764.jpeg?cs=srgb&dl=pexels-karola-g-5469764.jpg&fm=jpg",
+        sentenceNb: "Barna gleder seg til å åpne julegavene.",
+        sentenceTh: "เด็ก ๆ ตื่นเต้นรอแกะของขวัญคริสต์มาส",
+        sentencePron: "บารนา ก์เลเดอร์ ไช ทิล โอ ออปเน ยูเลกาเวเน"
+      },
+      {
+        id: 3,
+        word: "julemiddag",
+        thai: "อาหารเย็นวันคริสต์มาส",
+        image: "https://images.pexels.com/photos/5778904/pexels-photo-5778904.jpeg?cs=srgb&dl=pexels-nicole-michalou-5778904.jpg&fm=jpg",
+        sentenceNb: "Hele familien samles til julemiddag.",
+        sentenceTh: "ทั้งครอบครัวมารวมตัวกันเพื่อกินอาหารเย็นวันคริสต์มาส",
+        sentencePron: "เฮเล ฟามีเลียน ซัมเลส ทิล ยูเลมิดดาก"
+      },
+      {
+        id: 4,
+        word: "julelys",
+        thai: "ไฟประดับคริสต์มาส",
+        image: "https://images.pexels.com/photos/6332551/pexels-photo-6332551.jpeg?cs=srgb&dl=pexels-roman-odintsov-6332551.jpg&fm=jpg",
+        sentenceNb: "Vi henger julelys i vinduene.",
+        sentenceTh: "เราแขวนไฟประดับคริสต์มาสไว้ที่หน้าต่าง",
+        sentencePron: "วี เฮงเงร์ ยูเลลิส์ อิ วินดือเน"
+      },
+      {
+        id: 5,
+        word: "pepperkaker",
+        thai: "คุกกี้ขิงเพ็ปเปอร์คาเกอร์",
+        image: "https://images.pexels.com/photos/14615608/pexels-photo-14615608.jpeg?cs=srgb&dl=pexels-olha-ruskykh-14615608.jpg&fm=jpg",
+        sentenceNb: "Vi baker pepperkaker hver jul.",
+        sentenceTh: "เราทำคุกกี้ขิงทุก ๆ คริสต์มาส",
+        sentencePron: "วี บาเคอร์ เพ็ปเปอร์คาเกอร์ แวร์ ยูล"
+      },
+      {
+        id: 6,
+        word: "nisse",
+        thai: "ภูติ/ซานต้าน้อย",
+        image: "https://images.pexels.com/photos/14856420/pexels-photo-14856420.jpeg?cs=srgb&dl=pexels-kostas-dimopoulos-119583302-14856420.jpg&fm=jpg",
+        sentenceNb: "Barna håper at nissen kommer med gaver.",
+        sentenceTh: "เด็ก ๆ หวังว่านิสเซนจะมาพร้อมของขวัญ",
+        sentencePron: "บารนา โฮแปร์ อัต นิสเซน คอมเมอร์ เมด กาเวอร์"
+      },
+      {
+        id: 7,
+        word: "kirke",
+        thai: "โบสถ์",
+        image: "https://images.pexels.com/photos/7317448/pexels-photo-7317448.jpeg?cs=srgb&dl=pexels-artem-saranin-7317448.jpg&fm=jpg",
+        sentenceNb: "Vi går i kirken på julaften.",
+        sentenceTh: "พวกเราไปโบสถ์ในคืนคริสต์มาสอีฟ",
+        sentencePron: "วี กอร์ อิ เชียร์เคน โป ยูลาฟ์เติน"
+      },
+      {
+        id: 8,
+        word: "snø",
+        thai: "หิมะ",
+        image: "https://images.pexels.com/photos/7317448/pexels-photo-7317448.jpeg?cs=srgb&dl=pexels-artem-saranin-7317448.jpg&fm=jpg",
+        sentenceNb: "Det er ekstra koselig når det snør i julen.",
+        sentenceTh: "บรรยากาศอบอุ่นเป็นพิเศษเวลาหิมะตกช่วงคริสต์มาส",
+        sentencePron: "เด แอร์ เอกสตรา คูเชลิ นอร์ เดอ สเนอร์ อิ ยูเลน"
+      },
+      {
+        id: 9,
+        word: "julaften",
+        thai: "คืนคริสต์มาสอีฟ",
+        image: "https://images.pexels.com/photos/29833719/pexels-photo-29833719.jpeg?cs=srgb&dl=pexels-alena-evseenko-660538512-29833719.jpg&fm=jpg",
+        sentenceNb: "På julaften åpner vi de viktigste gavene.",
+        sentenceTh: "ในคืนคริสต์มาสอีฟเราเปิดของขวัญสำคัญที่สุด",
+        sentencePron: "โป ยูลาฟ์เติน ออปเนอร์ วี เด วิกติสเต กาเวเน"
+      },
+      {
+        id: 10,
+        word: "familie",
+        thai: "ครอบครัว",
+        image: "https://images.pexels.com/photos/5778904/pexels-photo-5778904.jpeg?cs=srgb&dl=pexels-nicole-michalou-5778904.jpg&fm=jpg",
+        sentenceNb: "Det viktigste i julen er å være sammen med familien.",
+        sentenceTh: "สิ่งสำคัญที่สุดในคริสต์มาสคือได้อยู่กับครอบครัว",
+        sentencePron: "เด วิกติสเต อิ ยูเลน แอร์ โอ แวเร ซัมเมน เมด ฟามีเลียน"
+      }
+    ];
 
-    <div class="number" id="number">1</div>
+    let currentIndex = 0;
 
-  </div>
+    const imgEl = document.getElementById("cardImage");
+    const imgPlaceholder = document.getElementById("imgPlaceholder");
+    const wordMainEl = document.getElementById("wordMain");
+    const wordThaiEl = document.getElementById("wordThai");
+    const cardNumberEl = document.getElementById("cardNumber");
+    const sentenceNbEl = document.getElementById("sentenceNb");
+    const sentenceThEl = document.getElementById("sentenceTh");
+    const sentencePronEl = document.getElementById("sentencePron");
 
-  <div class="sentence-box">
-    <div id="sentence">Vi pynter juletreet sammen i stua.</div>
-    <div id="sentence-th">เราตกแต่งต้นคริสต์มาสด้วยกันในห้องนั่งเล่น</div>
-    <div id="sentence-read">วี พุนแตร์ ยูเลทเรเอ ซัมเมิน อี สตูอา</div>
-  </div>
+    function showCard(index) {
+      const card = cards[index];
+      currentIndex = index;
 
-  <button class="btn-random" onclick="randomCard()">สุ่มการ์ดถัดไป 🎲</button>
-  <button class="btn-speak-word" onclick="speakWord()">อ่านคำศัพท์ 🔊</button>
-  <button class="btn-speak-sentence" onclick="speakSentence()">อ่านประโยค 🔊</button>
+      wordMainEl.textContent = card.word;
+      wordThaiEl.textContent = card.thai;
+      cardNumberEl.textContent = card.id;
 
-</div>
+      sentenceNbEl.textContent = card.sentenceNb;
+      sentenceThEl.textContent = card.sentenceTh;
+      sentencePronEl.textContent = card.sentencePron;
 
-<script>
-const cards = [
-  {
-    img:"https://picsum.photos/seed/juletre/800/400",
-    no:"juletre",
-    th:"ต้นคริสต์มาส",
-    cat:"🎄 Xmas",
-    num:1,
-    sentence:"Vi pynter juletreet sammen i stua.",
-    th_sentence:"เราตกแต่งต้นคริสต์มาสด้วยกันในห้องนั่งเล่น",
-    read:"วี พุนแตร์ ยูเลทเรเอ ซัมเมิน อี สตูอา"
-  },
-  {
-    img:"https://picsum.photos/seed/julegaver/800/400",
-    no:"julegaver",
-    th:"ของขวัญคริสต์มาส",
-    cat:"🎄 Xmas",
-    num:2,
-    sentence:"Barna gleder seg til å åpne julegaver.",
-    th_sentence:"เด็กๆ ตื่นเต้นที่จะเปิดของขวัญคริสต์มาส",
-    read:"บาร์นา เกลเดอร์ ไช ทิล ออ ออพเน ยูเลกาวแวร์"
-  },
-  {
-    img:"https://picsum.photos/seed/julemiddag/800/400",
-    no:"julemiddag",
-    th:"อาหารเย็นวันคริสต์มาส",
-    cat:"🎄 Xmas",
-    num:3,
-    sentence:"Hele familien samles til julemiddag.",
-    th_sentence:"ทั้งครอบครัวมารวมตัวกันเพื่ออาหารเย็นวันคริสต์มาส",
-    read:"เฮเล ฟามีเลียน ซัมเลส ทิล ยูเลมิดดาก"
-  },
-  {
-    img:"https://picsum.photos/seed/ribbe/800/400",
-    no:"ribbe",
-    th:"ซี่โครงหมูอบ",
-    cat:"🎄 Xmas",
-    num:4,
-    sentence:"Vi spiser ribbe på julaften.",
-    th_sentence:"เรากินซี่โครงหมูอบในคืนคริสต์มาสอีฟ",
-    read:"วี สปีเซร์ ริบเบะ โป ยูลาฟเทน"
-  },
-  {
-    img:"https://picsum.photos/seed/pinnekjott/800/400",
-    no:"pinnekjøtt",
-    th:"ซี่โครงแกะเค็ม",
-    cat:"🎄 Xmas",
-    num:5,
-    sentence:"I noen familier er pinnekjøtt tradisjon.",
-    th_sentence:"ในบางครอบครัว pinnekjøtt เป็นธรรมเนียมประจำคริสต์มาส",
-    read:"อี นูเอน ฟามีลิเยร์ แอร์ พินเนอเคิท ทราดิตชั่น"
-  },
-  {
-    img:"https://picsum.photos/seed/julegrot/800/400",
-    no:"julegrøt",
-    th:"โจ๊กข้าวคริสต์มาส",
-    cat:"🎄 Xmas",
-    num:6,
-    sentence:"Barna liker å få mandel i julegrøten.",
-    th_sentence:"เด็กๆ ชอบได้อัลมอนด์ในโจ๊กคริสต์มาส",
-    read:"บาร์นา ลีเคร์ ออ โฟ มันเดล อี ยูเลเกริต"
-  },
-  {
-    img:"https://picsum.photos/seed/julelys/800/400",
-    no:"julelys",
-    th:"ไฟประดับคริสต์มาส",
-    cat:"🎄 Xmas",
-    num:7,
-    sentence:"Vi tenner julelys i vinduene.",
-    th_sentence:"เรา点ไฟประดับคริสต์มาสที่หน้าต่าง",
-    read:"วี เท็นเนอร์ ยูเลลิส อี วินดูเนน"
-  },
-  {
-    img:"https://picsum.photos/seed/nisse/800/400",
-    no:"nisse",
-    th:"ภูติ/ซานต้าน้อย",
-    cat:"🎄 Xmas",
-    num:8,
-    sentence:"Barna håper at nissen kommer med gaver.",
-    th_sentence:"เด็กๆ หวังว่า Nissen จะมาพร้อมของขวัญ",
-    read:"บาร์นา โฮเปร์ อัท นิสเซน คอมเมอร์ เมด กาเวอร์"
-  },
-  {
-    img:"https://picsum.photos/seed/julekaker/800/400",
-    no:"julekaker",
-    th:"คุกกี้คริสต์มาส",
-    cat:"🎄 Xmas",
-    num:9,
-    sentence:"Vi baker julekaker hele desember.",
-    th_sentence:"เราทำคุกกี้คริสต์มาสตลอดทั้งเดือนธันวาคม",
-    read:"วี บาเคอร์ ยูเลคาเคอร์ เฮเล เดเซมเบอร์"
-  },
-  {
-    img:"https://picsum.photos/seed/familie/800/400",
-    no:"familie",
-    th:"ครอบครัว",
-    cat:"🎄 Xmas",
-    num:10,
-    sentence:"Det viktigste i julen er å være sammen med familien.",
-    th_sentence:"สิ่งสำคัญที่สุดในคริสต์มาสคือได้อยู่กับครอบครัว",
-    read:"เด วิกติเกิสเต อี ยูเลน แอร์ ออ แวเร ซัมเมิน เมด ฟามีเลียน"
-  }
-];
+      imgEl.style.display = "block";
+      imgPlaceholder.style.display = "none";
+      imgEl.src = card.image;
+      imgEl.onerror = () => {
+        imgEl.style.display = "none";
+        imgPlaceholder.style.display = "block";
+      };
+    }
 
-let norwegianVoice = null;
-function loadVoices(){
-  const v = speechSynthesis.getVoices();
-  norwegianVoice = v.find(x =>
-    x.lang.toLowerCase().startsWith("nb") ||
-    x.lang.toLowerCase().startsWith("no")
-  ) || null;
-}
-speechSynthesis.onvoiceschanged = loadVoices;
-loadVoices();
+    function getRandomIndex() {
+      if (cards.length <= 1) return 0;
+      let newIndex;
+      do {
+        newIndex = Math.floor(Math.random() * cards.length);
+      } while (newIndex === currentIndex);
+      return newIndex;
+    }
 
-function randomCard(){
-  const c = cards[Math.floor(Math.random()*cards.length)];
+    function speakText(text) {
+      if (!("speechSynthesis" in window)) {
+        alert("เบราว์เซอร์นี้ยังไม่รองรับการอ่านข้อความ (speechSynthesis)");
+        return;
+      }
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = "nb-NO"; // ภาษานอร์เวย์
+      utterance.rate = 0.95;
+      utterance.pitch = 1.02;
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(utterance);
+    }
 
-  document.getElementById("cardImg").src = c.img;
-  document.getElementById("word").textContent = c.no;
-  document.getElementById("meaning").textContent = c.th;
-  document.getElementById("category").textContent = c.cat;
-  document.getElementById("number").textContent = c.num;
+    document.getElementById("btnRandom").addEventListener("click", () => {
+      const idx = getRandomIndex();
+      showCard(idx);
+    });
 
-  document.getElementById("sentence").textContent = c.sentence;
-  document.getElementById("sentence-th").textContent = c.th_sentence;
-  document.getElementById("sentence-read").textContent = c.read;
-}
+    document.getElementById("btnSpeakWord").addEventListener("click", () => {
+      speakText(cards[currentIndex].word);
+    });
 
-function speakWord(){
-  speak(document.getElementById("word").textContent);
-}
+    document.getElementById("btnSpeakSentence").addEventListener("click", () => {
+      speakText(cards[currentIndex].sentenceNb);
+    });
 
-function speakSentence(){
-  speak(document.getElementById("sentence").textContent);
-}
-
-function speak(txt){
-  const u = new SpeechSynthesisUtterance(txt);
-  u.lang = norwegianVoice ? norwegianVoice.lang : "nb-NO";
-  if(norwegianVoice) u.voice = norwegianVoice;
-  u.rate = 0.9;
-  speechSynthesis.cancel();
-  speechSynthesis.speak(u);
-}
-
-// โหลดการ์ดแรก
-randomCard();
-</script>
-
+    // แสดงการ์ดแรกตอนเปิดหน้า
+    showCard(0);
+  </script>
 </body>
 </html>
