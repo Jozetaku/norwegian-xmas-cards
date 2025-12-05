@@ -382,13 +382,17 @@
       };
     }
 
-    function getRandomIndex() {
-      if (cards.length <= 1) return 0;
-      let newIndex;
-      do {
-        newIndex = Math.floor(Math.random() * cards.length);
-      } while (newIndex === currentIndex);
-      return newIndex;
+    // ฟังก์ชันเลือกเสียงภาษานอร์เวย์ ถ้ามี
+    function getNorwegianVoice() {
+      const synth = window.speechSynthesis;
+      const voices = synth.getVoices();
+      if (!voices || voices.length === 0) return null;
+      // หา nb-NO หรือ no-NO ถ้ามี
+      const nb = voices.find(v =>
+        v.lang.toLowerCase().startsWith('nb') ||
+        v.lang.toLowerCase().startsWith('no')
+      );
+      return nb || null;
     }
 
     function speakText(text) {
@@ -396,16 +400,37 @@
         alert("เบราว์เซอร์นี้ยังไม่รองรับการอ่านข้อความ (speechSynthesis)");
         return;
       }
+
+      const synth = window.speechSynthesis;
+      // เรียกครั้งนึงเพื่อบังคับให้โหลด voices บน Safari/iOS
+      synth.getVoices();
+
       const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = "nb-NO";
+      const nbVoice = getNorwegianVoice();
+      if (nbVoice) {
+        utterance.voice = nbVoice;
+        utterance.lang = nbVoice.lang;
+      } else {
+        // ไม่มีเสียงนอร์เวย์ก็ยังอ่านด้วยเสียง default ได้
+        utterance.lang = "nb-NO";
+      }
       utterance.rate = 0.95;
       utterance.pitch = 1.02;
-      window.speechSynthesis.cancel();
-      window.speechSynthesis.speak(utterance);
+      utterance.volume = 1;
+
+      synth.cancel();
+      synth.speak(utterance);
     }
 
     document.getElementById("btnRandom").addEventListener("click", () => {
-      const idx = getRandomIndex();
+      const idx = (function getRandomIndex() {
+        if (cards.length <= 1) return 0;
+        let newIndex;
+        do {
+          newIndex = Math.floor(Math.random() * cards.length);
+        } while (newIndex === currentIndex);
+        return newIndex;
+      })();
       showCard(idx);
     });
 
