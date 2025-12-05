@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Norwegian Christmas Card Game</title>
+  <style>
+    body{
+      margin:0;
+      background:#0d0d0d;
+      font-family:system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      height:100vh;
+      color:#fff;
+    }
+
+    .game-container{
+      position:relative;
+      width:430px;
+      max-width:100%;
+      background:#1f1f1f;
+      border-radius:22px;
+      padding:12px;
+      box-shadow:0 12px 50px rgba(0,0,0,.8);
+    }
+
+    .card{
+      position:relative;
+      width:100%;
+      height:260px;
+      border-radius:18px;
+      overflow:hidden;
+      box-shadow:0 10px 30px rgba(0,0,0,0.6);
+      background:#000;
+    }
+
+    .card-img{
+      width:100%;
+      height:140px;
+      object-fit:cover;
+      display:block;
+    }
+
+    .card-bottom{
+      background:linear-gradient(135deg,#ff3b3b,#c40000);
+      height:120px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      color:white;
+      position:relative;
+    }
+
+    .word{
+      font-size:34px;
+      font-weight:700;
+      margin-top:2px;
+    }
+
+    .meaning{
+      font-size:20px;
+      opacity:0.95;
+      margin-top:4px;
+    }
+
+    .flag{
+      position:absolute;
+      top:8px;
+      left:8px;
+      width:48px;
+      border-radius:6px;
+      box-shadow:0 0 6px rgba(0,0,0,.7);
+    }
+
+    .category{
+      position:absolute;
+      top:8px;
+      right:8px;
+      background:white;
+      color:#d10000;
+      padding:4px 10px;
+      border-radius:12px;
+      font-weight:700;
+      font-size:16px;
+      transform:rotate(6deg);
+    }
+
+    .number{
+      position:absolute;
+      bottom:8px;
+      right:10px;
+      background:white;
+      color:#d10000;
+      padding:4px 10px;
+      border-radius:10px;
+      font-size:18px;
+      font-weight:700;
+      transform:rotate(-6deg);
+    }
+
+    .sentence-box{
+      margin-top:14px;
+      background:#333;
+      padding:12px;
+      border-radius:14px;
+      font-size:15px;
+      line-height:1.35;
+    }
+
+    button{
+      width:100%;
+      padding:12px;
+      border:none;
+      border-radius:14px;
+      margin-top:10px;
+      font-size:18px;
+      font-weight:700;
+      cursor:pointer;
+    }
+    .btn-random{ background:#1abc9c; color:#fff; }
+    .btn-speak-word{ background:#3498db; color:#fff; }
+    .btn-speak-sentence{ background:#9b59b6; color:#fff; }
+  </style>
+</head>
+<body>
+
+<div class="game-container">
+
+  <div class="card" id="card">
+
+    <img id="cardImg" class="card-img" src="">
+
+    <!-- ธงนอร์เวย์ -->
+    <img class="flag" src="data:image/svg+xml;utf8,
+    <svg xmlns='http://www.w3.org/2000/svg' width='640' height='480'>
+    <path fill='%23ef2b2d' d='M0 0h640v480H0z'/>
+    <path fill='%23fff' d='M180 0h120v480H180zM0 180h640v120H0z'/>
+    <path fill='%23002f6c' d='M210 0h60v480h-60zM0 210h640v60H0z'/>
+    </svg>">
+
+    <div class="category" id="category">🎄 Xmas</div>
+
+    <div class="card-bottom">
+      <div class="word" id="word">juletre</div>
+      <div class="meaning" id="meaning">ต้นคริสต์มาส</div>
+    </div>
+
+    <div class="number" id="number">1</div>
+
+  </div>
+
+  <div class="sentence-box">
+    <div id="sentence">Vi pynter juletreet sammen i stua.</div>
+    <div id="sentence-th">เราตกแต่งต้นคริสต์มาสด้วยกันในห้องนั่งเล่น</div>
+    <div id="sentence-read">วี พุนแตร์ ยูเลทเรเอ ซัมเมิน อี สตูอา</div>
+  </div>
+
+  <button class="btn-random" onclick="randomCard()">สุ่มการ์ดถัดไป 🎲</button>
+  <button class="btn-speak-word" onclick="speakWord()">อ่านคำศัพท์ 🔊</button>
+  <button class="btn-speak-sentence" onclick="speakSentence()">อ่านประโยค 🔊</button>
+
+</div>
+
+<script>
+const cards = [
+  {
+    img:"https://images.unsplash.com/photo-1543589077-47d81606c1bf?auto=format&fit=crop&w=800&q=80",
+    no:"juletre",
+    th:"ต้นคริสต์มาส",
+    cat:"🎄 Xmas",
+    num:1,
+    sentence:"Vi pynter juletreet sammen i stua.",
+    th_sentence:"เราตกแต่งต้นคริสต์มาสด้วยกันในห้องนั่งเล่น",
+    read:"วี พุนแตร์ ยูเลทเรเอ ซัมเมิน อี สตูอา"
+  },
+  {
+    img:"https://images.unsplash.com/photo-1607082349566-187t46a3665f?auto=format&fit=crop&w=800&q=80",
+    no:"julegaver",
+    th:"ของขวัญคริสต์มาส",
+    cat:"🎄 Xmas",
+    num:2,
+    sentence:"Barna gleder seg til å åpne julegaver.",
+    th_sentence:"เด็กๆ ตื่นเต้นที่จะเปิดของขวัญคริสต์มาส",
+    read:"บาร์นา เกลเดอร์ ไช ทิล ออ ออพเน ยูเลกาวแวร์"
+  },
+  {
+    img:"https://images.unsplash.com/photo-1544207240-42875e0e75aa?auto=format&fit=crop&w=800&q=80",
+    no:"julemiddag",
+    th:"อาหารเย็นวันคริสต์มาส",
+    cat:"🎄 Xmas",
+    num:3,
+    sentence:"Hele familien samles til julemiddag.",
+    th_sentence:"ทั้งครอบครัวมารวมตัวกันเพื่ออาหารเย็นวันคริสต์มาส",
+    read:"เฮเล ฟามีเลียน ซัมเลส ทิล ยูเลมิดดาก"
+  },
+  {
+    img:"https://images.unsplash.com/photo-1604908177072-e89dfbf2df75?auto=format&fit=crop&w=800&q=80",
+    no:"ribbe",
+    th:"ซี่โครงหมูอบ",
+    cat:"🎄 Xmas",
+    num:4,
+    sentence:"Vi spiser ribbe på julaften.",
+    th_sentence:"เรากินซี่โครงหมูอบในคืนคริสต์มาสอีฟ",
+    read:"วี สปีเซร์ ริบเบะ โป ยูลาฟเทน"
+  },
+  {
+    img:"https://images.unsplash.com/photo-1605476449275-3bd6c3a1e9b4?auto=format&fit=crop&w=800&q=80",
+    no:"pinnekjøtt",
+    th:"ซี่โครงแกะเค็ม",
+    cat:"🎄 Xmas",
+    num:5,
+    sentence:"I noen familier er pinnekjøtt tradisjon.",
+    th_sentence:"ในบางครอบครัว pinnekjøtt เป็นธรรมเนียมประจำคริสต์มาส",
+    read:"อี นูเอน ฟามีลิเยร์ แอร์ พินเนอเคิท ทราดิตชั่น"
+  },
+  {
+    img:"https://images.unsplash.com/photo-1603133872878-684f5f6c6714?auto=format&fit=crop&w=800&q=80",
+    no:"julegrøt",
+    th:"โจ๊กข้าวคริสต์มาส",
+    cat:"🎄 Xmas",
+    num:6,
+    sentence:"Barna liker å få mandel i julegrøten.",
+    th_sentence:"เด็กๆ ชอบได้อัลมอนด์ในโจ๊กคริสต์มาส",
+    read:"บาร์นา ลีเคร์ ออ โฟ มันเดล อี ยูเลเกริต"
+  },
+  {
+    img:"https://images.unsplash.com/photo-1544964705-e3d46d2b5f31?auto=format&fit=crop&w=800&q=80",
+    no:"julelys",
+    th:"ไฟประดับคริสต์มาส",
+    cat:"🎄 Xmas",
+    num:7,
+    sentence:"Vi tenner julelys i vinduene.",
+    th_sentence:"เรา点ไฟประดับคริสต์มาสที่หน้าต่าง",
+    read:"วี เท็นเนอร์ ยูเลลิส อี วินดูเเน"
+  },
+  {
+    img:"https://images.unsplash.com/photo-1575831024644-fd2aafb48994?auto=format&fit=crop&w=800&q=80",
+    no:"nisse",
+    th:"ภูติ/ซานต้าน้อย",
+    cat:"🎄 Xmas",
+    num:8,
+    sentence:"Barna håper at nissen kommer med gaver.",
+    th_sentence:"เด็กๆ หวังว่า Nissen จะมาพร้อมของขวัญ",
+    read:"บาร์นา โฮเปร์ อัท นิสเซน คอมเมอร์ เมด กาเวอร์"
+  },
+  {
+    img:"https://images.unsplash.com/photo-1606664515524-3ad72037efa1?auto=format&fit=crop&w=800&q=80",
+    no:"julekaker",
+    th:"คุกกี้คริสต์มาส",
+    cat:"🎄 Xmas",
+    num:9,
+    sentence:"Vi baker julekaker hele desember.",
+    th_sentence:"เราทำคุกกี้คริสต์มาสตลอดทั้งเดือนธันวาคม",
+    read:"วี บาเคอร์ ยูเลคาเคอร์ เฮเล เดเซมเบอร์"
+  },
+  {
+    img:"https://images.unsplash.com/photo-1606787364406-a3cdf06c6d0c?auto=format&fit=crop&w=800&q=80",
+    no:"familie",
+    th:"ครอบครัว",
+    cat:"🎄 Xmas",
+    num:10,
+    sentence:"Det viktigste i julen er å være sammen med familien.",
+    th_sentence:"สิ่งสำคัญที่สุดในคริสต์มาสคือได้อยู่กับครอบครัว",
+    read:"เด วิกติเกิสเต อี ยูเลน แอร์ ออ แวเร ซัมเมิน เมด ฟามีเลียน"
+  }
+];
+
+let norwegianVoice = null;
+function loadVoices(){
+  const v = speechSynthesis.getVoices();
+  norwegianVoice = v.find(x =>
+    x.lang.toLowerCase().startsWith("nb") ||
+    x.lang.toLowerCase().startsWith("no")
+  ) || null;
+}
+speechSynthesis.onvoiceschanged = loadVoices;
+loadVoices();
+
+function randomCard(){
+  const c = cards[Math.floor(Math.random()*cards.length)];
+
+  document.getElementById("cardImg").src = c.img;
+  document.getElementById("word").textContent = c.no;
+  document.getElementById("meaning").textContent = c.th;
+  document.getElementById("category").textContent = c.cat;
+  document.getElementById("number").textContent = c.num;
+
+  document.getElementById("sentence").textContent = c.sentence;
+  document.getElementById("sentence-th").textContent = c.th_sentence;
+  document.getElementById("sentence-read").textContent = c.read;
+}
+
+function speakWord(){
+  speak(document.getElementById("word").textContent);
+}
+
+function speakSentence(){
+  speak(document.getElementById("sentence").textContent);
+}
+
+function speak(txt){
+  const u = new SpeechSynthesisUtterance(txt);
+  u.lang = norwegianVoice ? norwegianVoice.lang : "nb-NO";
+  if(norwegianVoice) u.voice = norwegianVoice;
+  u.rate = 0.9;
+  speechSynthesis.cancel();
+  speechSynthesis.speak(u);
+}
+
+// โหลดการ์ดแรก
+randomCard();
+</script>
+
+</body>
+</html>
