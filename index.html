@@ -2,10 +2,11 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8" />
-  <title>Norwegian Xmas Cards – A2 </title>
+  <title>Norwegian Xmas Cards – B1</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background:#000;
@@ -16,35 +17,40 @@
       min-height:100vh;
       padding:16px 8px 24px;
     }
+
     .app {
       width:100%;
       max-width:430px;
     }
+
     .title {
       text-align:center;
-      margin-bottom:10px;
+      margin-bottom:8px;
       font-weight:700;
       font-size:20px;
     }
+
     .subtitle {
       text-align:center;
       font-size:12px;
       opacity:0.8;
       margin-bottom:12px;
+      line-height:1.3;
     }
 
     .card {
       background:#111;
       border-radius:22px;
-      padding:0;
       overflow:hidden;
       box-shadow:0 18px 40px rgba(0,0,0,0.6);
       border:1px solid #222;
     }
+
     .card-header {
       position:relative;
       background:#000;
     }
+
     .card-flag {
       position:absolute;
       top:10px;
@@ -55,7 +61,12 @@
       overflow:hidden;
       box-shadow:0 4px 10px rgba(0,0,0,0.4);
     }
-    .card-flag img { width:100%; height:100%; object-fit:cover; }
+
+    .card-flag img {
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
 
     .card-tag {
       position:absolute;
@@ -75,19 +86,21 @@
     }
 
     .card-img-wrapper {
-      height:150px;
+      height:140px;
       background:#000;
       display:flex;
       align-items:center;
       justify-content:center;
       overflow:hidden;
     }
+
     .card-img-wrapper img {
       width:100%;
       height:100%;
       object-fit:cover;
       display:block;
     }
+
     .img-placeholder {
       font-size:12px;
       color:#888;
@@ -95,32 +108,35 @@
 
     .card-word {
       background:linear-gradient(145deg,#ff3333,#cc0000);
-      padding:18px 18px 16px;
+      padding:16px 16px 14px;
       position:relative;
     }
+
     .word-main {
-      font-size:30px;
+      font-size:28px;
       font-weight:800;
-      margin-bottom:6px;
+      margin-bottom:4px;
     }
+
     .word-thai {
-      font-size:16px;
+      font-size:15px;
       opacity:0.95;
     }
+
     .card-number {
       position:absolute;
       right:14px;
-      bottom:10px;
+      bottom:8px;
       background:#fff;
       color:#ff3333;
-      width:32px;
-      height:32px;
+      width:30px;
+      height:30px;
       border-radius:12px;
       display:flex;
       align-items:center;
       justify-content:center;
       font-weight:800;
-      font-size:18px;
+      font-size:17px;
       box-shadow:0 4px 10px rgba(0,0,0,0.35);
     }
 
@@ -128,35 +144,48 @@
       margin-top:6px;
       background:#222;
       border-radius:18px;
-      padding:10px 14px 11px;
-      font-size:14px;
-      line-height:1.4;
+      padding:9px 12px 10px;
+      font-size:13px;
+      line-height:1.35;
+      word-wrap:break-word;
+      overflow-wrap:anywhere;
     }
+
     .sentence-nb {
       margin-bottom:4px;
       font-weight:600;
+      word-wrap:break-word;
+      overflow-wrap:anywhere;
     }
+
     .sentence-th {
-      font-size:13px;
+      font-size:12px;
       margin-bottom:4px;
+      word-wrap:break-word;
+      overflow-wrap:anywhere;
     }
+
     .sentence-pron {
       font-size:11px;
-      opacity:0.7;
+      opacity:0.75;
+      word-wrap:break-word;
+      overflow-wrap:anywhere;
     }
 
     .buttons {
-      margin-top:10px;
+      margin-top:9px;
       display:flex;
       flex-direction:column;
       gap:8px;
+      padding:0 4px 10px;
     }
+
     .btn {
       width:100%;
       border:none;
       border-radius:18px;
-      padding:12px 10px;
-      font-size:16px;
+      padding:11px 8px;
+      font-size:15px;
       font-weight:650;
       cursor:pointer;
       transition:transform .06s ease, box-shadow .06s ease, opacity .06s ease;
@@ -165,27 +194,35 @@
       justify-content:center;
       gap:8px;
     }
+
     .btn:active {
       transform:translateY(1px) scale(0.98);
       box-shadow:none;
       opacity:0.9;
     }
+
     .btn-random {
       background:#00c0a3;
       color:#000;
       box-shadow:0 6px 14px rgba(0,192,163,0.4);
     }
+
     .btn-word {
       background:#1e88ff;
       color:#fff;
       box-shadow:0 6px 14px rgba(30,136,255,0.5);
     }
+
     .btn-sentence {
       background:#9c27ff;
       color:#fff;
       box-shadow:0 6px 14px rgba(156,39,255,0.5);
     }
-    .btn small { font-size:13px; opacity:0.9; }
+
+    .btn small {
+      font-size:13px;
+      opacity:0.9;
+    }
 
     footer {
       margin-top:10px;
@@ -193,6 +230,7 @@
       font-size:11px;
       color:#888;
     }
+
     footer a {
       color:#ddd;
       text-decoration:none;
@@ -201,8 +239,10 @@
 </head>
 <body>
   <main class="app">
-    <h1 class="title">🎄 Norwegian Xmas Cards - A2</h1>
-    <p class="subtitle">การ์ดคำศัพท์นอร์เวย์สำหรับช่วงคริสต์มาส พร้อมเสียงอ่านและตัวอย่างประโยค</p>
+    <h1 class="title">🎄 Norwegian Xmas Cards – B1</h1>
+    <p class="subtitle">
+      การ์ดคำศัพท์นอร์เวย์สำหรับช่วงคริสต์มาส พร้อมเสียงอ่านและประโยคตัวอย่างระดับ B1
+    </p>
 
     <section class="card" aria-live="polite">
       <div class="card-header">
@@ -214,9 +254,7 @@
         </div>
         <div class="card-img-wrapper">
           <img id="cardImage" src="" alt="Christmas illustration" />
-          <span id="imgPlaceholder" class="img-placeholder" style="display:none;">
-            ไม่มีภาพ
-          </span>
+          <span id="imgPlaceholder" class="img-placeholder" style="display:none;">ไม่มีภาพ</span>
         </div>
       </div>
 
@@ -228,13 +266,13 @@
 
       <div class="sentence-box">
         <div id="sentenceNb" class="sentence-nb">
-          Vi pynter juletreet sammen på julaften.
+          Før vi kan slappe av på julaften, må vi alltid bruke litt tid på å pynte juletreet skikkelig.
         </div>
         <div id="sentenceTh" class="sentence-th">
-          พวกเราตกแต่งต้นคริสต์มาสด้วยกันในคืนคริสต์มาสอีฟ
+          ก่อนที่เราจะได้พักผ่อนในคืนคริสต์มาสอีฟ เราจะต้องใช้เวลาเล็กน้อยเพื่อตกแต่งต้นคริสต์มาสให้เรียบร้อย
         </div>
         <div id="sentencePron" class="sentence-pron">
-          วี พึนเตอร์ ยูเลทเรเอ็ต ซัมเมน โป ยูลาฟ์เติน
+          เฟอร์ วี คาน ชลัปเป อาว์ โป ยูลาฟ์เติน มอ วี อัลทีด บรูเกะ ลิต ทีด โป ออ พึนเตะ ยูเลทเรเอ เช็กเคอลิ
         </div>
       </div>
 
@@ -263,90 +301,90 @@
         word: "juletre",
         thai: "ต้นคริสต์มาส",
         image: "https://images.pexels.com/photos/29833719/pexels-photo-29833719.jpeg?auto=compress&cs=tinysrgb&w=1000",
-        sentenceNb: "Vi pynter juletreet sammen på julaften.",
-        sentenceTh: "พวกเราตกแต่งต้นคริสต์มาสด้วยกันในคืนคริสต์มาสอีฟ",
-        sentencePron: "วี พึนเตอร์ ยูเลทเรเอ็ต ซัมเมน โป ยูลาฟ์เติน"
+        sentenceNb: "Før vi kan slappe av på julaften, må vi alltid bruke litt tid på å pynte juletreet skikkelig.",
+        sentenceTh: "ก่อนที่เราจะได้พักผ่อนในคืนคริสต์มาสอีฟ เราจะต้องใช้เวลาเล็กน้อยเพื่อตกแต่งต้นคริสต์มาสให้เรียบร้อย",
+        sentencePron: "เฟอร์ วี คาน ชลัปเป อาว์ โป ยูลาฟ์เติน มอ วี อัลทีด บรูเกะ ลิต ทีด โป ออ พึนเตะ ยูเลทเรเอ เช็กเคอลิ"
       },
       {
         id: 2,
         word: "julegaver",
         thai: "ของขวัญคริสต์มาส",
         image: "https://images.pexels.com/photos/5469764/pexels-photo-5469764.jpeg?auto=compress&cs=tinysrgb&w=1000",
-        sentenceNb: "Barna gleder seg til å åpne julegavene.",
-        sentenceTh: "เด็ก ๆ ตื่นเต้นรอแกะของขวัญคริสต์มาส",
-        sentencePron: "บารนา ก์เลเดอร์ ไช ทิล โอ ออปเน ยูเลกาเวเน"
+        sentenceNb: "Barna blir så spente fordi de aldri vet hva som ligger i julegavene før de åpner dem.",
+        sentenceTh: "เด็ก ๆ ตื่นเต้นมากเพราะพวกเขาไม่เคยรู้เลยว่ามีอะไรอยู่ในของขวัญจนกว่าจะเปิดดู",
+        sentencePron: "บารนา บลีร ซอ สเปนเต ฟอรดี เด อัลดรี เวท วา ซอม ลิกเกอร์ อิ ยูเลกาเวเน เฟอร์ เด ออปเนร์ เด็ม"
       },
       {
         id: 3,
         word: "julemiddag",
         thai: "อาหารเย็นวันคริสต์มาส",
         image: "https://images.pexels.com/photos/5778904/pexels-photo-5778904.jpeg?auto=compress&cs=tinysrgb&w=1000",
-        sentenceNb: "Hele familien samles til julemiddag.",
-        sentenceTh: "ทั้งครอบครัวมารวมตัวกันเพื่อกินอาหารเย็นวันคริสต์มาส",
-        sentencePron: "เฮเล ฟามีเลียน ซัมเลส ทิล ยูเลมิดดาก"
+        sentenceNb: "Selv om vi har spist julemiddag mange ganger før, føles det alltid spesielt når hele familien sitter samlet rundt bordet.",
+        sentenceTh: "ถึงแม้ว่าเราจะเคยกินอาหารเย็นคริสต์มาสหลายครั้งแล้ว แต่ก็ยังรู้สึกพิเศษทุกครั้งเมื่อทั้งครอบครัวได้นั่งพร้อมหน้ากัน",
+        sentencePron: "เซล โอม วี ฮาร์ สปีสต์ ยูเลมิดดาก มังเง กังเงร์ เฟอร์ เฟอเลส เด อัลทีด สเปเซียลท์ นอร์ เฮเล ฟามีเลียน ซิตเตอร์ ซัมเลท รุนด์ โบเร็ต"
       },
       {
         id: 4,
         word: "julelys",
         thai: "ไฟประดับคริสต์มาส",
         image: "https://images.pexels.com/photos/6332551/pexels-photo-6332551.jpeg?auto=compress&cs=tinysrgb&w=1000",
-        sentenceNb: "Vi henger julelys i vinduene.",
-        sentenceTh: "เราแขวนไฟประดับคริสต์มาสไว้ที่หน้าต่าง",
-        sentencePron: "วี เฮงเงร์ ยูเลลิส์ อิ วินดือเน"
+        sentenceNb: "Når julelysene endelig blir tent, får hele huset en varm stemning som gjør vinterkvelden mye hyggeligere.",
+        sentenceTh: "เมื่อไฟประดับถูกเปิดในที่สุด บ้านทั้งหลังจะมีบรรยากาศอบอุ่นขึ้น ทำให้ค่ำคืนฤดูหนาวน่าอยู่ขึ้นมาก",
+        sentencePron: "นอร์ ยูเลลีเสเน เอนเดอลิ บลีร์ เต็นท์ ฟอร์ เฮเล ฮูเซต เอน วาร์ม สเต็มนิง ซอม เยอร์ วินแตร์เคเวลเดน มูเย ฮีกเกอลิเกเร"
       },
       {
         id: 5,
         word: "pepperkaker",
-        thai: "คุกกี้ขิงเพ็ปเปอร์คาเกอร์",
+        thai: "คุกกี้ขิง",
         image: "https://images.pexels.com/photos/14615608/pexels-photo-14615608.jpeg?auto=compress&cs=tinysrgb&w=1000",
-        sentenceNb: "Vi baker pepperkaker hver jul.",
-        sentenceTh: "เราทำคุกกี้ขิงทุก ๆ คริสต์มาส",
-        sentencePron: "วี บาเคอร์ เพ็ปเปอร์คาเกอร์ แวร์ ยูล"
+        sentenceNb: "Vi pleier å bake pepperkaker sammen mens vi hører på julemusikk, noe som gjør hele prosessen ekstra koselig.",
+        sentenceTh: "พวกเรามักทำคุกกี้ขิงด้วยกันพร้อมเปิดเพลงคริสต์มาส ซึ่งทำให้กระบวนการทั้งหมดอบอุ่นและน่ารักเป็นพิเศษ",
+        sentencePron: "วี เพลเยอร์ ออ บาเคะ เพ็ปเปอร์คาเกอร์ ซัมเม็น เมนส์ วี เฮอเรอร์ โป ยูเลมูซิก โนเอะ ซอม เยอร์ เฮเล โพรเซสเซน เอ็กซ์ตรา คูเซอลิ"
       },
       {
         id: 6,
         word: "nisse",
         thai: "ภูติ/ซานต้าน้อย",
         image: "https://images.pexels.com/photos/14856420/pexels-photo-14856420.jpeg?auto=compress&cs=tinysrgb&w=1000",
-        sentenceNb: "Barna håper at nissen kommer med gaver.",
-        sentenceTh: "เด็ก ๆ หวังว่านิสเซนจะมาพร้อมของขวัญ",
-        sentencePron: "บารนา โฮแปร์ อัต นิสเซน คอมเมอร์ เมด กาเวอร์"
+        sentenceNb: "Ifølge tradisjonen passer nissen på gården, og barna liker å tro at han legger igjen små gaver hvis de har vært snille.",
+        sentenceTh: "ตามธรรมเนียม นิสเซนเป็นผู้ดูแลบ้านไร่ และเด็ก ๆ ชอบเชื่อว่าเขาจะทิ้งของขวัญเล็ก ๆ ไว้ถ้าพวกเขาประพฤติดี",
+        sentencePron: "อิเฟลเก เทราดิซิโอเนน พัสเซร์ นิสเซน โป โกร์เดิน ออก บารนา ลีเกอร์ ออ ทรู อัต ฮัน เลกเกอร์ อิเย็น สมอ กาเวอร์ วิส เด ฮาร์ แวร์ท สนิลเล"
       },
       {
         id: 7,
         word: "kirke",
         thai: "โบสถ์",
         image: "https://images.pexels.com/photos/11853945/pexels-photo-11853945.jpeg?auto=compress&cs=tinysrgb&w=1000",
-        sentenceNb: "Vi går i kirken på julaften.",
-        sentenceTh: "พวกเราไปโบสถ์ในคืนคริสต์มาสอีฟ",
-        sentencePron: "วี กอร์ อิ เชียร์เคน โป ยูลาฟ์เติน"
+        sentenceNb: "Mange familier drar til kirken på julaften for å høre juleevangeliet, noe som gir en rolig og høytidelig start på kvelden.",
+        sentenceTh: "หลายครอบครัวไปโบสถ์ในคืนคริสต์มาสอีฟเพื่อฟังพระวรสารคริสต์มาส ซึ่งทำให้ค่ำคืนนั้นเริ่มต้นอย่างสงบและขรึมขลัง",
+        sentencePron: "มังเง ฟามีเลียร์ ดราร์ ทิล เชียร์เคน โป ยูลาฟ์เติน ฟอร ออ เฮอเร ยูเลเอวังเงลิเอท โนเอะ ซอม กีร์ เอน รูลีก อ็อก เฮอย์ทีดเดอลิก สตาร์ท โป เคเวลเดน"
       },
       {
         id: 8,
         word: "julepynt",
         thai: "ของตกแต่งคริสต์มาส",
         image: "https://images.pexels.com/photos/5727885/pexels-photo-5727885.jpeg?auto=compress&cs=tinysrgb&w=1000",
-        sentenceNb: "Vi legger julepynt på bordet før gjestene kommer.",
-        sentenceTh: "เราเอาของตกแต่งคริสต์มาสมาวางบนโต๊ะก่อนแขกจะมา",
-        sentencePron: "วี เลกเกอร์ ยูเลพุนท์ โป บูร์เด็ต เฟอร์ เยสเตเน คอมเมอร์"
+        sentenceNb: "Etter at vi har hentet fram all julepynten, bruker vi tid på å finne ut hvordan vi kan gjøre stuen så koselig som mulig.",
+        sentenceTh: "หลังจากนำของตกแต่งทั้งหมดออกมา เราก็ใช้เวลาเลือกว่าจะทำให้ห้องนั่งเล่นอบอุ่นที่สุดได้อย่างไร",
+        sentencePron: "เอ็ทเตอร์ อัต วี ฮาร์ เฮนเต็ท ฟราม อัล ยูเลพุนเทิน บรูเกอร์ วี ทีด โป ออ ฟินเน อุท ฮอร์ดัน วี คาน เยอเร สตูเอน ซอ คูเซอลิ ซอม มูลิก"
       },
       {
         id: 9,
         word: "julaften",
         thai: "คืนคริสต์มาสอีฟ",
         image: "https://images.pexels.com/photos/29833719/pexels-photo-29833719.jpeg?auto=compress&cs=tinysrgb&w=1000",
-        sentenceNb: "På julaften åpner vi de viktigste gavene.",
-        sentenceTh: "ในคืนคริสต์มาสอีฟเราเปิดของขวัญสำคัญที่สุด",
-        sentencePron: "โป ยูลาฟ์เติน ออปเนอร์ วี เด วิกติสเต กาเวเน"
+        sentenceNb: "På julaften prøver vi alltid å senke tempoet litt, slik at vi virkelig kan nyte tiden vi har sammen før gaver og middag begynner.",
+        sentenceTh: "ในคืนคริสต์มาสอีฟ เรามักจะพยายามชะลอจังหวะชีวิตลงเล็กน้อย เพื่อให้เราได้ใช้เวลาร่วมกันอย่างแท้จริงก่อนเริ่มมื้อเย็นและเปิดของขวัญ",
+        sentencePron: "โป ยูลาฟ์เติน เพรอเวอร์ วี อัลทีด ออ เซนเก เท็มโปเอ็ท ลิต ซลิก อัต วี เวียร์เคลิ คาน นืทเท ทีเดน วี ฮาร์ ซัมเม็น เฟอร์ กาเวอร์ อ็อก มิดดาก เบอกฺยุนเนอร์"
       },
       {
         id: 10,
         word: "familie",
         thai: "ครอบครัว",
         image: "https://images.pexels.com/photos/5778904/pexels-photo-5778904.jpeg?auto=compress&cs=tinysrgb&w=1000",
-        sentenceNb: "Det viktigste i julen er å være sammen med familien.",
-        sentenceTh: "สิ่งสำคัญที่สุดในคริสต์มาสคือได้อยู่กับครอบครัว",
-        sentencePron: "เด วิกติสเต อิ ยูเลน แอร์ โอ แวเร ซัมเมน เมด ฟามีเลียน"
+        sentenceNb: "Selv om julen kan være travel, prøver vi alltid å sette av tid til familien, fordi det er disse øyeblikkene som skaper de beste minnene.",
+        sentenceTh: "แม้ว่าช่วงคริสต์มาสจะยุ่งแค่ไหน เราก็พยายามหาเวลาให้ครอบครัว เพราะช่วงเวลาเหล่านี้แหละที่สร้างความทรงจำที่ดีที่สุด",
+        sentencePron: "เซล โอม ยูเลน คาน แวเร ทราเวิล เพรอเวอร์ วี อัลทีด ออ เซ็ตเท อาว์ ทีด ทิล ฟามีเลียน ฟอรดี เด แอร์ ดิสเซ เออย์บลิกเคเน ซอม สกอเปอร์ เด เบสเต มินเนเน"
       }
     ];
 
@@ -382,15 +420,13 @@
       };
     }
 
-    // ฟังก์ชันเลือกเสียงภาษานอร์เวย์ ถ้ามี
     function getNorwegianVoice() {
       const synth = window.speechSynthesis;
       const voices = synth.getVoices();
       if (!voices || voices.length === 0) return null;
-      // หา nb-NO หรือ no-NO ถ้ามี
       const nb = voices.find(v =>
-        v.lang.toLowerCase().startsWith('nb') ||
-        v.lang.toLowerCase().startsWith('no')
+        v.lang.toLowerCase().startsWith("nb") ||
+        v.lang.toLowerCase().startsWith("no")
       );
       return nb || null;
     }
@@ -402,8 +438,7 @@
       }
 
       const synth = window.speechSynthesis;
-      // เรียกครั้งนึงเพื่อบังคับให้โหลด voices บน Safari/iOS
-      synth.getVoices();
+      synth.getVoices(); // บังคับโหลดเสียงบน iOS
 
       const utterance = new SpeechSynthesisUtterance(text);
       const nbVoice = getNorwegianVoice();
@@ -411,7 +446,6 @@
         utterance.voice = nbVoice;
         utterance.lang = nbVoice.lang;
       } else {
-        // ไม่มีเสียงนอร์เวย์ก็ยังอ่านด้วยเสียง default ได้
         utterance.lang = "nb-NO";
       }
       utterance.rate = 0.95;
@@ -423,15 +457,12 @@
     }
 
     document.getElementById("btnRandom").addEventListener("click", () => {
-      const idx = (function getRandomIndex() {
-        if (cards.length <= 1) return 0;
-        let newIndex;
-        do {
-          newIndex = Math.floor(Math.random() * cards.length);
-        } while (newIndex === currentIndex);
-        return newIndex;
-      })();
-      showCard(idx);
+      if (cards.length <= 1) return;
+      let newIndex;
+      do {
+        newIndex = Math.floor(Math.random() * cards.length);
+      } while (newIndex === currentIndex);
+      showCard(newIndex);
     });
 
     document.getElementById("btnSpeakWord").addEventListener("click", () => {
@@ -442,7 +473,7 @@
       speakText(cards[currentIndex].sentenceNb);
     });
 
-    // แสดงการ์ดแรกตอนเปิดหน้า
+    // แสดงการ์ดแรก
     showCard(0);
   </script>
 </body>
