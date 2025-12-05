@@ -323,12 +323,12 @@
       },
       {
         id: 8,
-        word: "snø",
-        thai: "หิมะ",
-        image: "https://images.pexels.com/photos/20598602/pexels-photo-20598602.jpeg?auto=compress&cs=tinysrgb&w=1000",
-        sentenceNb: "Det er ekstra koselig når det snør i julen.",
-        sentenceTh: "บรรยากาศอบอุ่นเป็นพิเศษเวลาหิมะตกช่วงคริสต์มาส",
-        sentencePron: "เด แอร์ เอกสตรา คูเชลิ นอร์ เดอ สเนอร์ อิ ยูเลน"
+        word: "julepynt",
+        thai: "ของตกแต่งคริสต์มาส",
+        image: "https://images.pexels.com/photos/5727885/pexels-photo-5727885.jpeg?auto=compress&cs=tinysrgb&w=1000",
+        sentenceNb: "Vi legger julepynt på bordet før gjestene kommer.",
+        sentenceTh: "เราเอาของตกแต่งคริสต์มาสมาวางบนโต๊ะก่อนแขกจะมา",
+        sentencePron: "วี เลกเกอร์ ยูเลพุนท์ โป บูร์เด็ต เฟอร์ เยสเตเน คอมเมอร์"
       },
       {
         id: 9,
@@ -397,7 +397,7 @@
         return;
       }
       const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = "nb-NO"; // ภาษานอร์เวย์
+      utterance.lang = "nb-NO";
       utterance.rate = 0.95;
       utterance.pitch = 1.02;
       window.speechSynthesis.cancel();
